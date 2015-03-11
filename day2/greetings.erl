@@ -8,16 +8,19 @@
 %% Usage:
 %% > greetings:sayhelloto("Joe").
 %% > greetings:sayhelloto(<<"Mike">>).
+sayhelloto(SomeName) when is_binary(SomeName) ->
+  sayhelloto(binary_to_list(SomeName));
 sayhelloto(SomeName) ->
-  if
-    is_binary(SomeName) ->
-      string:concat("Hello, ", binary_to_list(SomeName));
-
-    is_list(SomeName) ->
-      string:concat("Hello, ", SomeName);
-
-    true ->
-      "Say hi to whom?"
-  end.
+  "Hello, " ++ SomeName ++ ".".
 
 %% Then expand to support variable greetings.
+%% Usage:
+%% > greetings:saywhat("Hi there", "Joe").
+%% > greetings:saywhat("Hello", <<"Mike">>).
+%% > greetings:saywhat(<<"Goodbye">>, <<"Joe">>).
+saywhat(Greeting, SomeName) when is_binary(Greeting) ->
+  saywhat(binary_to_list(Greeting), SomeName);
+saywhat(Greeting, SomeName) when is_binary(SomeName) ->
+  saywhat(Greeting, binary_to_list(SomeName));
+saywhat(Greeting, SomeName) ->
+  Greeting ++ ", " ++ SomeName ++ ".".
