@@ -3,6 +3,7 @@
 
 -module(greetings).
 -compile(export_all).
+-include_lib("eunit/include/eunit.hrl").
 
 %% Let SomeName be an argument to verify any name passed into a greeting.
 %% Usage:
@@ -24,3 +25,14 @@ saywhat(Greeting, SomeName) when is_binary(SomeName) ->
   saywhat(Greeting, binary_to_list(SomeName));
 saywhat(Greeting, SomeName) ->
   Greeting ++ ", " ++ SomeName ++ ".".
+
+%% Tests
+
+sayhelloto_test() ->
+  ?assertEqual("Hello, Joe.", sayhelloto("Joe")),
+  ?assertEqual("Hello, Mike.", sayhelloto(<<"Mike">>)).
+
+saywhat_test() ->
+  ?assertEqual("Hi there, Joe.", saywhat("Hi there","Joe")),
+  ?assertEqual("Hello, Mike.", saywhat("Hello", <<"Mike">>)),
+  ?assertEqual("Goodbye, Joe.", saywhat(<<"Goodbye">>,<<"Joe">>)).
