@@ -23,8 +23,7 @@ read(Key, List) ->
 %% > A2 = crudite:update(carrots, 2, A).
 %% > A3 = crudite:update(celery, 1, A2).
 update(Key, Value, List) ->
-  Tuple = erlang:list_to_tuple([Key, Value]),
-  List ++ [Tuple].
+  List ++ [{Key, Value}].
 
 %% delete element from proplist
 %% Usage:
